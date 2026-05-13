@@ -1,0 +1,42 @@
+{
+  "name": "ncmdump-ts",
+  "version": "2.0.0",
+  "description": "Convert Netease Cloud Music .ncm files to mp3/flac (TypeScript port)",
+  "main": "dist/index.js",
+  "bin": {
+    "ncmdump": "dist/cli.js"
+  },
+  "files": [
+    "dist/"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "start": "tsx src/cli.ts",
+    "test": "npm run build && tsx test/test.ts",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "ncm",
+    "netease",
+    "music",
+    "decrypt",
+    "dump",
+    "mp3",
+    "flac"
+  ],
+  "license": "MIT",
+  "author": "focnal",
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "dependencies": {
+    "commander": "^12.1.0",
+    "node-id3": "^0.2.9"
+  },
+  "devDependencies": {
+    "@types/node": "^20.17.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.7.0"
+  }
+}

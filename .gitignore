@@ -1,0 +1,14 @@
+node_modules/
+dist/
+*.ncm
+*.flac
+*.mp3
+./test/test.mp3
+./test/test.flac
+
+# editor config dir
+.vscode
+.idea
+
+.github
+.claude
