@@ -5,9 +5,9 @@ import * as path from 'path';
 import { NeteaseCrypt } from '../src/ncmcrypt';
 import { writeMetadata } from '../src/metadata';
 
-const TEST_NCM  = path.join(__dirname, 'test.ncm');
-const TMP_DIR   = path.join(__dirname, '..', '.test-tmp');
-const CLI       = path.join(__dirname, '..', 'dist', 'cli.js');
+const TEST_NCM = path.join(__dirname, 'test.ncm');
+const TMP_DIR = path.join(__dirname, '..', '.test-tmp');
+const CLI = path.join(__dirname, '..', 'dist', 'cli.js');
 
 let passed = 0;
 let failed = 0;
@@ -93,7 +93,7 @@ check('fixMetadata() writes tags to output', () => {
     while (off < buf.length - 4) {
       const hdr = buf.readUInt32BE(off);
       const type = (hdr >>> 24) & 0x7f;
-      const len  = hdr & 0x00ffffff;
+      const len = hdr & 0x00ffffff;
       if (type === 4) {
         const vc = buf.subarray(off + 4, off + 4 + len);
         const vendorLen = vc.readUInt32LE(0);
@@ -154,7 +154,7 @@ check('-d directory mode', () => {
   fs.cpSync(TEST_NCM, path.join(TMP_DIR, 'dir-flat', 'b.ncm'));
   const outdir = path.join(TMP_DIR, 'dir-flat-out');
   shell(`node "${CLI}" -d "${path.join(TMP_DIR, 'dir-flat')}" -o "${outdir}"`);
-  const files = fs.readdirSync(outdir).filter(f => /\.(mp3|flac)$/.test(f));
+  const files = fs.readdirSync(outdir).filter((f) => /\.(mp3|flac)$/.test(f));
   assert.equal(files.length, 2, 'should have 2 output files');
 });
 
@@ -165,8 +165,13 @@ check('-d -r recursive mode', () => {
   fs.cpSync(TEST_NCM, path.join(TMP_DIR, 'dir-rec', 'sub', 'b.ncm'));
   const outdir = path.join(TMP_DIR, 'dir-rec-out');
   shell(`node "${CLI}" -d "${path.join(TMP_DIR, 'dir-rec')}" -r -o "${outdir}"`);
-  assert.ok(fs.existsSync(path.join(outdir, 'a.flac')) || fs.existsSync(path.join(outdir, 'a.mp3')));
-  assert.ok(fs.existsSync(path.join(outdir, 'sub', 'b.flac')) || fs.existsSync(path.join(outdir, 'sub', 'b.mp3')));
+  assert.ok(
+    fs.existsSync(path.join(outdir, 'a.flac')) || fs.existsSync(path.join(outdir, 'a.mp3')),
+  );
+  assert.ok(
+    fs.existsSync(path.join(outdir, 'sub', 'b.flac')) ||
+      fs.existsSync(path.join(outdir, 'sub', 'b.mp3')),
+  );
 });
 
 // ── teardown ───────────────────────────────────────────────────────

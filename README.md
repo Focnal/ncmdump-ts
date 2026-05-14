@@ -33,15 +33,15 @@ node dist/cli.js './test/test.ncm'
 ncmdump [options] [files...]
 ```
 
-| 参数 | 说明 |
-|------|------|
-| `[files...]` | 一个或多个 `.ncm` 文件 |
-| `-d, --directory <path>` | 批量处理目录下所有 `.ncm` 文件 |
-| `-r, --recursive` | 配合 `-d` 递归子目录，保留目录结构 |
-| `-o, --output <path>` | 指定输出目录（默认输出到源文件所在目录） |
-| `-m, --remove` | 转换成功后删除源 `.ncm` 文件 |
-| `-v, --version` | 输出版本号 |
-| `-h, --help` | 输出帮助信息 |
+| 参数                     | 说明                                     |
+| ------------------------ | ---------------------------------------- |
+| `[files...]`             | 一个或多个 `.ncm` 文件                   |
+| `-d, --directory <path>` | 批量处理目录下所有 `.ncm` 文件           |
+| `-r, --recursive`        | 配合 `-d` 递归子目录，保留目录结构       |
+| `-o, --output <path>`    | 指定输出目录（默认输出到源文件所在目录） |
+| `-m, --remove`           | 转换成功后删除源 `.ncm` 文件             |
+| `-v, --version`          | 输出版本号                               |
+| `-h, --help`             | 输出帮助信息                             |
 
 ### 示例
 
@@ -99,10 +99,10 @@ console.log(crypt.metadata);
 console.log(crypt.imageData); // Buffer | null — 封面图片
 
 // 解密音频流到文件
-crypt.dump();              // 输出到源文件目录
-crypt.dump('/output');     // 输出到指定目录
+crypt.dump(); // 输出到源文件目录
+crypt.dump('/output'); // 输出到指定目录
 
-console.log(crypt.format);       // 'mp3' | 'flac'
+console.log(crypt.format); // 'mp3' | 'flac'
 console.log(crypt.dumpFilepath); // 输出文件的绝对路径
 
 // 写入元数据标签（歌名、歌手、专辑、封面）
@@ -116,10 +116,10 @@ import { writeMetadata } from 'ncmdump';
 
 // writeMetadata 接受四个参数：
 writeMetadata(
-  filepath,           // string — 音频文件路径
-  'mp3' | 'flac',     // format — 音频格式
-  { title, artist, album },  // tags
-  imageBuffer         // Buffer | undefined — 封面图片
+  filepath, // string — 音频文件路径
+  'mp3' | 'flac', // format — 音频格式
+  { title, artist, album }, // tags
+  imageBuffer, // Buffer | undefined — 封面图片
 );
 
 // 可以传入自定义实现：
@@ -140,12 +140,12 @@ fs.writeFileSync('cover.jpg', crypt.imageData!);
 
 ```typescript
 export class NeteaseCrypt {
-  constructor(ncmPath: string);  // 解析 NCM 文件头、密钥、元数据
-  dump(outputDir?: string): void;  // 解密音频流到文件
-  fixMetadata(writer?: WriteMetadataFn): void;  // 写入标签
+  constructor(ncmPath: string); // 解析 NCM 文件头、密钥、元数据
+  dump(outputDir?: string): void; // 解密音频流到文件
+  fixMetadata(writer?: WriteMetadataFn): void; // 写入标签
 
-  get filepath(): string;      // 源文件路径
-  get dumpFilepath(): string;  // 输出文件路径（dump 后可用）
+  get filepath(): string; // 源文件路径
+  get dumpFilepath(): string; // 输出文件路径（dump 后可用）
   get format(): 'mp3' | 'flac'; // 音频格式（dump 后可用）
   get metadata(): MusicMetadata | null;
   get imageData(): Buffer | null;
@@ -157,14 +157,14 @@ export interface MusicMetadata {
   artist: string;
   format: string;
   bitrate: number;
-  duration: number;  // 毫秒
+  duration: number; // 毫秒
 }
 
 export function writeMetadata(
   filepath: string,
   format: 'mp3' | 'flac',
   tags: { title?: string; artist?: string; album?: string },
-  imageData?: Buffer
+  imageData?: Buffer,
 ): void;
 ```
 
@@ -191,7 +191,6 @@ NCM 文件结构：
 3. 从文件内嵌的元数据块解密 JSON，提取歌名/歌手/专辑/封面图
 4. 探测解密后音频的首字节（`ID3` → mp3，否则 → flac），写入对应扩展名
 5. 用 TagLib 等价逻辑写入 ID3v2（MP3）或 Vorbis Comment + Picture（FLAC）标签
-
 
 ## 测试
 
