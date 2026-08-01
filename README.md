@@ -199,3 +199,8 @@ npm test
 ```
 
 运行 14 个测试用例，覆盖 API 和 CLI 的全部功能。测试位于 `test/test.ts`。
+
+## Web 版 Demo
+
+仓库的 [`web/`](web/) 目录是一个基于 Vue 3 + Vite 的纯浏览器端解密页面：解密逻辑已移植到浏览器，
+无需启动任何服务即可使用。详见 [web/README.md](web/README.md)。
